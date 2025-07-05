@@ -1,0 +1,37 @@
+stages:
+  make_dataset:
+    cmd: python ./src/datasets/make_dataset.py
+    deps:
+      - ./src/datasets/make_dataset.py
+    params:
+      - make_dataset.test_size
+    outs:
+      - data/processed/train.csv
+      - data/processed/val.csv
+      - data/processed/test.csv
+
+  data_preprocessing:
+    cmd: python ./src/feature/data_preprocessing.py 
+    deps:
+      - ./src/feature/data_preprocessing.py
+      - data/processed/train.csv
+      - data/processed/val.csv
+      - data/processed/test.csv
+    outs:
+      - data/processed/final
+      - models/transformers
+
+
+  train_model:
+      cmd: python .\src\modeling\train.py train.csv 
+      deps:
+      - .\src\modeling\train.py
+      - .\data\processed\final\train.csv
+      outs:
+      - .\models\models
+
+    predict_model:
+      cmd: python .\src\modeling\predict.py val.csv 
+      deps:
+      - .\src\src\modeling\predict.py
+      - .\data\processed\final\val.csv

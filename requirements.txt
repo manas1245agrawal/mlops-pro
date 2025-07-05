@@ -1,0 +1,17 @@
+black
+flake8
+isort
+loguru
+mkdocs
+pip
+pytest
+python-dotenv
+tqdm
+typer
+numpy
+pandas
+scikit-learn
+uvicorn
+fastapi
+joblib
+xgboost
